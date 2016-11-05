@@ -1,15 +1,5 @@
-var cacheName = 'shell-content';
-var filesToCache = [
-  '/css/styles.css',
-  '/js/firebase.js'
-];
-
-self.addEventListener('install', function(e) {
-  console.log('[ServiceWorker] Install');
-  e.waitUntil(
-    caches.open(cacheName).then(function(cache) {
-      console.log('[ServiceWorker] Caching app shell');
-      return cache.addAll(filesToCache);
-    })
-  );
-});
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+             .register('/service-worker.js')
+             .then(function() { console.log('Service Worker Registered'); });
+}
