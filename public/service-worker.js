@@ -1,7 +1,7 @@
 var cacheName = 'koala-todo-shell';
 var filesToCache = [
   '/css/styles.css',
-  '/js/firebase.js'
+  '/js/app.js'
 ];
 
 self.addEventListener('install', function(e) {
@@ -29,19 +29,13 @@ self.addEventListener('activate', function(e) {
 
 });
 
-self.addEventListener('idle', function(e) {
-  console.log('[Service Worker] Idle');
-});
-
 self.addEventListener('fetch', function(e) {
   console.log('[Service Worker] Fetch', e.request.url);
 
-  if(e.request.url.indexOf('localhost') > -1) {
-    e.respondWith(
-      caches.match(e.request).then(function(response) {
-        return response || fetch(e.request);
-      })
-    );
-  }
+  e.respondWith(
+    caches.match(e.request).then(function(response) {
+      return response || fetch(e.request);
+    })
+  );
 
 });

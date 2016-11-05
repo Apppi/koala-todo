@@ -3,3 +3,4 @@ if ('serviceWorker' in navigator) {
              .register('/service-worker.js')
              .then(function() { console.log('Service Worker Registered'); });
 }
+ 
