@@ -65,7 +65,8 @@ KoalaTodo.prototype.addTask = function(evt) {
   if(tastText !== '') {
     this.database.ref('tasks/').push({
       email: userEmail,
-      text: tastText
+      text: tastText,
+      date: new Date().toString()
     }).then(function() {
       self.taskText.value = "";
     })
