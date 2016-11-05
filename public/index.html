@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+</head>
+<body>
+  <div id="header-bar">
+    <div>
+      <div>
+        <h3>Koala Todo</h3>
+      </div>
+      <div id="user-container">
+        <div id="user-info"></div>
+        <div hidden id="user-email"></div>
+        <button hidden id="sign-out">
+
+          Sign-out
+        </button>
+        <button hidden id="sign-in">
+          <i class="material-icons">account_circle</i>Sign-in with Google
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <form id="form-task-input">
+    <input id="tast-text" type="text">
+    <button>ADD</button>
+  </form>
+
+  To Do List
+  <div id="task-list">
+
+  </div>
+
+  <!-- Firebase config -->
+  <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-messaging.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyC7pZTERxpFWuDaXoOM4sYY_Hg9-n-Qc98",
+      authDomain: "koala-todo.firebaseapp.com",
+      databaseURL: "https://koala-todo.firebaseio.com",
+      storageBucket: "koala-todo.appspot.com",
+      messagingSenderId: "46769945984"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
