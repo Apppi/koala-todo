@@ -6,7 +6,9 @@ function KoalaTodo() {
   this.signOutButton = document.getElementById('sign-out');
   this.userInfo = document.getElementById('user-info');
   this.userEmail = document.getElementById('user-email');
+  this.userAvatar = document.getElementById('user-avatar');
   this.taskList = document.getElementById('task-list');
+  this.notificationToken = document.getElementById('notification-token');
 
   // Input Form
   this.formTaskInput = document.getElementById('form-task-input');
@@ -23,8 +25,30 @@ function KoalaTodo() {
 KoalaTodo.prototype.initFirebase = function() {
   this.auth = firebase.auth();
   this.database = firebase.database();
+  this.messaging = firebase.messaging();
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
+
+  var self = this;
+
+  this.messaging.requestPermission()
+  .then(function() {
+
+    console.log('Notification permission granted.');
+    return self.messaging.getToken();
+  })
+  .then(function(token) {
+    // self.notificationToken.textContent = token;
+  })
+  .catch(function(err) {
+    console.log('Unable to get permission to notify.', err);
+  });
+
+  this.messaging.onMessage(function(payload) {
+    console.log("Message received. ", payload);
+  });
+
 };
+
 
 KoalaTodo.prototype.signIn = function() {
   var provider = new firebase.auth.GoogleAuthProvider();
@@ -37,12 +61,15 @@ KoalaTodo.prototype.signOut = function() {
 
 KoalaTodo.prototype.onAuthStateChanged = function(user) {
   if(user) {
+    console.log(user);
+
+    this.userAvatar.src = user.photoURL;
     this.userInfo.textContent = user.displayName + " (" + user.email + ")";
     this.userEmail.textContent = user.email;
 
-    this.signInButton.setAttribute('hidden', true);
+    this.signInButton.style.display = 'none';
     this.signOutButton.removeAttribute('hidden');
-    this.formTaskInput.removeAttribute('hidden');
+    this.formTaskInput.style.display = 'block';
 
     this.getTasks();
 
@@ -51,8 +78,8 @@ KoalaTodo.prototype.onAuthStateChanged = function(user) {
     this.userEmail.textContent = "";
 
     this.signOutButton.setAttribute('hidden', true);
-    this.signInButton.removeAttribute('hidden');
-    this.formTaskInput.setAttribute('hidden', true);
+    this.signInButton.style.display = 'block';
+    this.formTaskInput.style.display = 'none';
   }
 };
 
@@ -81,6 +108,11 @@ KoalaTodo.prototype.removeTask = function(taskId) {
 KoalaTodo.prototype.getTasks = function() {
 
   let self = this;
+  //
+  // if ('caches' in window) {
+  //   console.log('cache');
+  //
+  // }
 
   this.database.ref('tasks/').on('value', function(tasks) {
     var tasks = tasks.val();
@@ -91,15 +123,12 @@ KoalaTodo.prototype.getTasks = function() {
       if(tasks[taskId].email !== self.userEmail.textContent)
         return ''
 
-      var newButton = document.createElement('button');
-      newButton.innerHTML = 'Remove';
-      newButton.onclick = function () {
-        self.removeTask(taskId)
-      };
-
       var newList = document.createElement('li');
       newList.innerHTML = tasks[taskId].text + ' ';
-      newList.appendChild(newButton);
+
+      newList.onclick = function () {
+        self.removeTask(taskId)
+      };
 
       self.taskList.appendChild(newList);
 

@@ -1,39 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="manifest" href="/manifest.json">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <div id="header-bar">
-    <div>
-      <div>
-        <h3>Koala Todo</h3>
-      </div>
-      <div id="user-container">
-        <div id="user-info"></div>
-        <div hidden id="user-email"></div>
-        <button hidden id="sign-out">
+  <div class="todoapp">
+    <div class="todoapp__head">
+      <h1 class="todoapp__headline">Koala Todo</h1>
 
-          Sign-out
-        </button>
-        <button hidden id="sign-in">
-          <i class="material-icons">account_circle</i>Sign-in with Google
+      <div class="todoapp__user">
+        <img id="user-avatar">
+        <span id="user-info"></span>
+      </div>
+
+      <div class="todoapp__signout" hidden id="sign-out">
+        <button>Sign out</button>
+      </div>
+
+      <div class="todoapp__signin" id="sign-in">
+        <button>
+          <i class="material-icons">account_circle</i>
+          <span>Sign in with Google</span>
         </button>
       </div>
+
+      <form class="todoapp__form" id="form-task-input">
+        <input type="text" placeholder="Add your task here" id="tast-text">
+        <button>Add</button>
+      </form>
+    </div>
+
+    <div class="todoapp__body">
+      <ul class="todoapp__tasks" id="task-list"></ul>
     </div>
   </div>
 
-  <form hidden id="form-task-input">
-    <input id="tast-text" type="text">
-    <button>ADD</button>
-  </form>
+  <div hidden id="user-email"></div>
 
-  To Do List
-  <div id="task-list">
-
-  </div>
+  <!-- <div id="notification-token"></div> -->
 
   <!-- Firebase config -->
+  <script src="/js/jquery-3.1.1.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-auth.js"></script>

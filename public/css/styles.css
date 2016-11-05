@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  color: #fff;
+  background-color: #343436;
+}
+
+button {
+  display: inline-block;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 2px;
+  color: #343436;
+  background-color: #fad027;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: none;
+}
+
+input {
+  display: inline-block;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 2px;
+  color: #212121;
+  background-color: #fff;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  outline: none;
+}
+
+input::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+ul {
+  display: block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+*[hidden] {
+  display: none;
+}
+
+/* material-icons */
+
+.material-icons {
+  vertical-align: top;
+}
+
+/* todoapp */
+
+.todoapp {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+/* todoapp head */
+
+.todoapp__head {
+  position: fixed;
+  z-index: 1;
+  top: 0; right: 0; left: 0;
+  display: block;
+  box-sizing: border-box;
+  height: 240px;
+  padding: 64px 24px;
+  border-bottom: 4px solid #fad027;
+  background-color: #343436;
+  text-align: center;
+}
+
+/* todoapp body */
+
+.todoapp__body {
+  position: relative;
+  display: block;
+  padding: 24px;
+  margin-top: 240px;
+}
+
+/* todoapp headline */
+
+.todoapp__headline {
+  display: block;
+  margin: 0;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 72px;
+}
+
+/* todoapp user */
+
+.todoapp__user {
+  position: absolute;
+  top: 16px; left: 24px;
+}
+
+.todoapp__user > img {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  margin-right: 16px;
+  vertical-align: middle;
+}
+
+@media all and (max-width: 600px) {
+  .todoapp__user > span {
+    display: none;
+  }
+}
+
+/* todoapp signin */
+
+.todoapp__signin {
+  display: block;
+}
+
+/* todoapp signout */
+
+.todoapp__signout {
+  position: absolute;
+  top: 16px; right: 24px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.todoapp__signout > button {
+  color: #fad027;
+  background: none;
+  vertical-align: middle;
+}
+
+/* todoapp form */
+
+.todoapp__form {
+  display: flex;
+  flex-flow: row wrap;
+  max-width: 320px;
+  margin: auto;
+}
+
+.todoapp__form > input {
+  flex: 1 1 auto;
+}
+
+.todoapp__form > button {
+  margin-left: 8px;
+}
+
+/* todoapp tasks */
+
+.todoapp__tasks {
+  position: relative;
+  display: block;
+  max-width: 320px;
+  margin: auto;
+}
+
+.todoapp__tasks > li {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  padding: 8px 16px;
+  margin: 8px 0;
+  border-radius: 2px;
+  color: #212121;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.todoapp__tasks > li:hover {
+  padding-right: 40px;
+}
+
+.todoapp__tasks > li:hover:after {
+  content: 'delete';
+  position: absolute;
+  right: 8px;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  color: #727272;
+  font-family: 'Material Icons';
+  font-size: 20px;
+  text-align: center;
+}

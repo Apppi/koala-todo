@@ -1,4 +1,4 @@
-var cacheName = 'koala-todo-shell';
+var cacheName = 'koala-todo-shellv4';
 var filesToCache = [
   '/css/styles.css',
   '/js/app.js'
@@ -31,6 +31,12 @@ self.addEventListener('activate', function(e) {
 
 self.addEventListener('fetch', function(e) {
   console.log('[Service Worker] Fetch', e.request.url);
+
+
+  if(e.request.url.indexOf('/js/firebase.js') > -1) {
+    console.log("Match");
+
+  }
 
   e.respondWith(
     caches.match(e.request).then(function(response) {

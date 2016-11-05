@@ -1,0 +1,10 @@
+curl -X POST -H "Authorization: key=AIzaSyA1oqkmBM_yWEfuCUqUp-R2giQ9q3rIGwk" -H "Content-Type: application/json" -d '{
+  "notification": {
+    "title": "Hello",
+    "body": "World",
+    "icon": "firebase-icon.png",
+    "click_action": "http://localhost:5000"
+  },
+  "time_to_live" : 0
+  "to": "cdQzZ3PVCwI:APA91bFQmSW5iTFEGfyb1qyAyoDlZTwmb7dc9EiA-dZsGgnp0ySeDtAyJxg4N7X0HHH9YkipGjghZge8lYBpb9Jh1NQRtwegXLGLFbXSQDVVvd8QMJNNFBzaiXejKKtjfC819mmX-miL"
+}' "https://fcm.googleapis.com/fcm/send"
