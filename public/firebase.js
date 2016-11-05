@@ -42,6 +42,7 @@ KoalaTodo.prototype.onAuthStateChanged = function(user) {
 
     this.signInButton.setAttribute('hidden', true);
     this.signOutButton.removeAttribute('hidden');
+    this.formTaskInput.removeAttribute('hidden');
 
     this.getTasks();
 
@@ -51,6 +52,7 @@ KoalaTodo.prototype.onAuthStateChanged = function(user) {
 
     this.signOutButton.setAttribute('hidden', true);
     this.signInButton.removeAttribute('hidden');
+    this.formTaskInput.setAttribute('hidden', true);
   }
 };
 
@@ -60,13 +62,15 @@ KoalaTodo.prototype.addTask = function(evt) {
   var tastText = this.taskText.value;
   var userEmail = this.userEmail.textContent;
 
+  if(tastText !== '') {
+    this.database.ref('tasks/').push({
+      email: userEmail,
+      text: tastText
+    }).then(function() {
+      self.taskText.value = "";
+    })
+  }
 
-  this.database.ref('tasks/').push({
-    email: userEmail,
-    text: tastText
-  }).then(function() {
-    self.taskText.value = "";
-  })
 }
 
 KoalaTodo.prototype.removeTask = function(taskId) {
@@ -82,10 +86,6 @@ KoalaTodo.prototype.getTasks = function() {
     self.taskList.innerHTML = "";
 
     Object.keys(tasks).map(function(taskId) {
-
-      // console.log(tasks[taskId].email);
-      // console.log(self.userEmail.textContent);
-      // console.log()
 
       if(tasks[taskId].email !== self.userEmail.textContent)
         return ''
