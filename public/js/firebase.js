@@ -61,6 +61,8 @@ KoalaTodo.prototype.signOut = function() {
 
 KoalaTodo.prototype.onAuthStateChanged = function(user) {
 
+  this.userAvatar.style.display = 'none';
+
   if(user) {
     this.userAvatar.src = user.photoURL;
     this.userInfo.textContent = user.displayName + " (" + user.email + ")";
@@ -69,6 +71,7 @@ KoalaTodo.prototype.onAuthStateChanged = function(user) {
     this.signInButton.style.display = 'none';
     this.signOutButton.removeAttribute('hidden');
     this.formTaskInput.style.display = 'block';
+    this.userAvatar.style.display = 'inline-block';
 
     this.getTasks();
 

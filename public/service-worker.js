@@ -1,4 +1,4 @@
-var cacheName = 'koala-todo-shellv2';
+var cacheName = 'koala-todo-shellv3';
 var filesToCache = [
   '/css/styles.css',
   '/js/app.js',
@@ -21,14 +21,6 @@ self.addEventListener('install', function(e) {
 
 self.addEventListener('activate', function(e) {
   console.log('[ServiceWorker] Activate');
-
-  firebase.initializeApp({
-    apiKey: "AIzaSyC7pZTERxpFWuDaXoOM4sYY_Hg9-n-Qc98",
-    authDomain: "koala-todo.firebaseapp.com",
-    databaseURL: "https://koala-todo.firebaseio.com",
-    storageBucket: "koala-todo.appspot.com",
-    messagingSenderId: "46769945984"
-  })
 
   e.waitUntil(
     caches.keys().then(function(keyList) {
