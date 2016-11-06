@@ -1,7 +1,12 @@
-var cacheName = 'koala-todo-shellv4';
+var cacheName = 'koala-todo-shellv2';
 var filesToCache = [
   '/css/styles.css',
-  '/js/app.js'
+  '/js/app.js',
+  '/js/firebase.js',
+  '/icons/launcher-icon-1x.png',
+  '/icons/launcher-icon-2x.png',
+  '/icons/launcher-icon-3x.png',
+  '/icons/launcher-icon-4x.png'
 ];
 
 self.addEventListener('install', function(e) {
@@ -16,6 +21,15 @@ self.addEventListener('install', function(e) {
 
 self.addEventListener('activate', function(e) {
   console.log('[ServiceWorker] Activate');
+
+  firebase.initializeApp({
+    apiKey: "AIzaSyC7pZTERxpFWuDaXoOM4sYY_Hg9-n-Qc98",
+    authDomain: "koala-todo.firebaseapp.com",
+    databaseURL: "https://koala-todo.firebaseio.com",
+    storageBucket: "koala-todo.appspot.com",
+    messagingSenderId: "46769945984"
+  })
+
   e.waitUntil(
     caches.keys().then(function(keyList) {
       return Promise.all(keyList.map(function(key) {
@@ -31,12 +45,6 @@ self.addEventListener('activate', function(e) {
 
 self.addEventListener('fetch', function(e) {
   console.log('[Service Worker] Fetch', e.request.url);
-
-
-  if(e.request.url.indexOf('/js/firebase.js') > -1) {
-    console.log("Match");
-
-  }
 
   e.respondWith(
     caches.match(e.request).then(function(response) {

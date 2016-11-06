@@ -60,9 +60,8 @@ KoalaTodo.prototype.signOut = function() {
 };
 
 KoalaTodo.prototype.onAuthStateChanged = function(user) {
-  if(user) {
-    console.log(user);
 
+  if(user) {
     this.userAvatar.src = user.photoURL;
     this.userInfo.textContent = user.displayName + " (" + user.email + ")";
     this.userEmail.textContent = user.email;
@@ -80,6 +79,9 @@ KoalaTodo.prototype.onAuthStateChanged = function(user) {
     this.signOutButton.setAttribute('hidden', true);
     this.signInButton.style.display = 'block';
     this.formTaskInput.style.display = 'none';
+
+    localStorage.removeItem('tasks');
+
   }
 };
 
@@ -108,33 +110,43 @@ KoalaTodo.prototype.removeTask = function(taskId) {
 KoalaTodo.prototype.getTasks = function() {
 
   let self = this;
-  //
-  // if ('caches' in window) {
-  //   console.log('cache');
-  //
-  // }
+
+  if(localStorage.tasks) {
+    self.taskList.innerHTML = "";
+
+    var tasks = JSON.parse(localStorage.tasks);
+    self.createDomTask(tasks);
+
+  }
 
   this.database.ref('tasks/').on('value', function(tasks) {
     var tasks = tasks.val();
-    self.taskList.innerHTML = "";
 
-    Object.keys(tasks).map(function(taskId) {
-
-      if(tasks[taskId].email !== self.userEmail.textContent)
-        return ''
-
-      var newList = document.createElement('li');
-      newList.innerHTML = tasks[taskId].text + ' ';
-
-      newList.onclick = function () {
-        self.removeTask(taskId)
-      };
-
-      self.taskList.appendChild(newList);
-
-    });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    self.createDomTask(tasks);
   })
 
+
+}
+
+KoalaTodo.prototype.createDomTask = function(tasks) {
+  var self = this;
+  this.taskList.innerHTML = "";
+
+  Object.keys(tasks).map(function(taskId) {
+
+    if(tasks[taskId].email !== self.userEmail.textContent)
+      return ''
+
+    var newList = document.createElement('li');
+    newList.innerHTML = tasks[taskId].text + ' ';
+
+    newList.onclick = function () {
+      self.removeTask(taskId)
+    };
+
+    self.taskList.appendChild(newList);
+  })
 
 }
 
